@@ -1,7 +1,7 @@
 {
   "name": "wigo-disposables",
   "version": "0.1.0",
-  "description": "Lightweigh disposable pattern implementation",
+  "description": "Lightweight disposable pattern implementation",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --recursive --compilers js:babel-register test/**/*.es6 test/*.es6",
