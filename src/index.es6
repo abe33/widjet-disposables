@@ -1,5 +1,10 @@
 class Disposable {
-  constructor (block) { this.block = block }
+  constructor (block) {
+    if (!block) {
+      throw new Error('A Disposable must be created with a dispose callback')
+    }
+    this.block = block
+  }
 
   dispose () {
     if (!this.disposed) {
