@@ -39,12 +39,12 @@ class DisposableEvent extends Disposable {
   constructor (target, event, listener) {
     const events = event.split(/\s+/g)
 
-    if (target.addEventListener != null) {
+    if (typeof target.addEventListener === 'function') {
       super(() => {
         events.forEach(event => target.removeEventListener(event, listener))
       })
       events.forEach(event => target.addEventListener(event, listener))
-    } else if (target.on != null) {
+    } else if (typeof target.on === 'function') {
       super(() => events.forEach(event => target.off(event, listener)))
       events.forEach(event => target.on(event, listener))
     }

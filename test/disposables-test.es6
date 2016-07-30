@@ -1,6 +1,6 @@
 import expect from 'expect.js'
 import sinon from 'sinon'
-import {Disposable, CompositeDisposable} from '../src/index'
+import {Disposable, CompositeDisposable, DisposableEvent} from '../src/index'
 
 describe('Disposable', () => {
   describe('when created without a block', () => {
@@ -90,6 +90,62 @@ describe('CompositeDisposable', () => {
         composite.dispose()
 
         expect(spy1.called).not.to.be.ok()
+      })
+    })
+  })
+})
+
+describe('DisposableEvent', () => {
+  let [source, disposable, listener] = []
+
+  describe('on a source with addEventListener method', () => {
+    beforeEach(() => {
+      source = {
+        addEventListener: sinon.spy(),
+        removeEventListener: sinon.spy()
+      }
+      listener = () => {}
+
+      disposable = new DisposableEvent(source, 'event1 event2', listener)
+    })
+
+    it('registers the listener on the source object for each events', () => {
+      expect(source.addEventListener.calledWith('event1', listener)).to.be.ok()
+      expect(source.addEventListener.calledWith('event2', listener)).to.be.ok()
+    })
+
+    describe('.dispose()', () => {
+      it('removes the listener for each event', () => {
+        disposable.dispose()
+
+        expect(source.removeEventListener.calledWith('event1', listener)).to.be.ok()
+        expect(source.removeEventListener.calledWith('event2', listener)).to.be.ok()
+      })
+    })
+  })
+
+  describe('on a source with on/off methods', () => {
+    beforeEach(() => {
+      source = {
+        on: sinon.spy(),
+        off: sinon.spy()
+      }
+      listener = () => {}
+
+      disposable = new DisposableEvent(source, 'event1 event2', listener)
+    })
+
+    it('registers the listener on the source object for each events', () => {
+      expect(source.on.calledWith('event1', listener)).to.be.ok()
+      expect(source.on.calledWith('event2', listener)).to.be.ok()
+    })
+
+    describe('.dispose()', () => {
+      it('removes the listener for each event', () => {
+        disposable.dispose()
+
+        expect(source.off.calledWith('event1', listener)).to.be.ok()
+        expect(source.off.calledWith('event2', listener)).to.be.ok()
       })
     })
   })
