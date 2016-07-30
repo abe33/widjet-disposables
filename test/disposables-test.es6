@@ -1,6 +1,6 @@
 import expect from 'expect.js'
 import sinon from 'sinon'
-import {Disposable} from '../src/index'
+import {Disposable, CompositeDisposable} from '../src/index'
 
 describe('Disposable', () => {
   describe('when created without a block', () => {
@@ -30,6 +30,67 @@ describe('Disposable', () => {
       disposable.dispose()
 
       expect(spy.callCount).to.eql(1)
+    })
+  })
+})
+
+describe('CompositeDisposable', () => {
+  let [composite, disposable1, disposable2, spy1, spy2] = []
+
+  beforeEach(() => {
+    spy1 = sinon.spy()
+    spy2 = sinon.spy()
+    disposable1 = new Disposable(spy1)
+    disposable2 = new Disposable(spy2)
+  })
+
+  describe('created with an array of disposables', () => {
+    beforeEach(() => {
+      composite = new CompositeDisposable([disposable1, disposable2])
+    })
+
+    it('disposes the provided disposables with a call to .dispose()', () => {
+      composite.dispose()
+
+      expect(spy1.called).to.be.ok()
+      expect(spy2.called).to.be.ok()
+    })
+
+    it('disposes the composited disposables only once', () => {
+      composite.dispose()
+      composite.dispose()
+      composite.dispose()
+      composite.dispose()
+
+      expect(spy1.callCount).to.eql(1)
+      expect(spy2.callCount).to.eql(1)
+    })
+  })
+
+  describe('created without any disposables', () => {
+    beforeEach(() => {
+      composite = new CompositeDisposable()
+    })
+
+    describe('.add()', () => {
+      it('adds a disposable to the composite', () => {
+        composite.add(disposable1)
+
+        composite.dispose()
+
+        expect(spy1.called).to.be.ok()
+      })
+    })
+
+    describe('.remove()', () => {
+      it('removes a disposable from the composite', () => {
+        composite.add(disposable1)
+        composite.remove(disposable1)
+
+        composite.dispose()
+
+        expect(spy1.called).not.to.be.ok()
+      })
     })
   })
 })

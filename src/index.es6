@@ -15,7 +15,7 @@ class Disposable {
 }
 
 class CompositeDisposable extends Disposable {
-  constructor () {
+  constructor (disposables = []) {
     super(() => {
       for (let i = 0; i < this.disposables.length; i++) {
         const disposable = this.disposables[i]
@@ -23,7 +23,7 @@ class CompositeDisposable extends Disposable {
       }
     })
 
-    this.disposables = []
+    this.disposables = disposables
   }
 
   add (disposable) { this.disposables.push(disposable) }
