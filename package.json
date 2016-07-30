@@ -1,5 +1,5 @@
 {
-  "name": "wigo-disposables",
+  "name": "widjet-disposables",
   "version": "0.1.0",
   "description": "Lightweight disposable pattern implementation",
   "main": "lib/index.js",
@@ -11,13 +11,13 @@
     "esdoc": "esdoc -c esdoc.json",
     "install": "npm run babel"
   },
-  "keywords": ["widgets", "widget", "web", "wigo"],
+  "keywords": ["widgets", "widget", "web", "widjet"],
   "repository": {
     "type": "git",
-    "url": "git://github.com/abe33/wigo-disposables.git"
+    "url": "git://github.com/abe33/widjet-disposables.git"
   },
-  "bugs": "http://github.com/abe33/wigo-disposables/issues",
-  "commits": "http://github.com/abe33/wigo-disposables/commits",
+  "bugs": "http://github.com/abe33/widjet-disposables/issues",
+  "commits": "http://github.com/abe33/widjet-disposables/commits",
   "author": "Cédric Néhémie <cedric.nehemie@gmail.com>",
   "license": "MIT",
   "devDependencies": {
