@@ -23,6 +23,12 @@ describe('Disposable', () => {
       expect(spy.called).to.be.ok()
     })
 
+    it('removes the reference to the block after the first call', () => {
+      disposable.dispose()
+
+      expect(disposable.block).to.be(undefined)
+    })
+
     it('calls the passed-in block only once', () => {
       disposable.dispose()
       disposable.dispose()

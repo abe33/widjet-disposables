@@ -7,9 +7,9 @@ class Disposable {
   }
 
   dispose () {
-    if (!this.disposed) {
+    if (this.block) {
       this.block()
-      this.disposed = true
+      delete this.block
     }
   }
 }
