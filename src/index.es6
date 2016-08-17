@@ -40,13 +40,11 @@ class DisposableEvent extends Disposable {
     const events = event.split(/\s+/g)
 
     if (typeof target.addEventListener === 'function') {
-      super(() => {
-        events.forEach(event => target.removeEventListener(event, listener))
-      })
-      events.forEach(event => target.addEventListener(event, listener))
+      super(() => events.forEach(e => target.removeEventListener(e, listener)))
+      events.forEach(e => target.addEventListener(e, listener))
     } else if (typeof target.on === 'function') {
-      super(() => events.forEach(event => target.off(event, listener)))
-      events.forEach(event => target.on(event, listener))
+      super(() => events.forEach(e => target.off(e, listener)))
+      events.forEach(e => target.on(e, listener))
     }
   }
 }
