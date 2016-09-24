@@ -1,4 +1,4 @@
-class Disposable {
+export class Disposable {
   constructor (block) {
     if (!block) {
       throw new Error('A Disposable must be created with a dispose callback')
@@ -14,7 +14,7 @@ class Disposable {
   }
 }
 
-class CompositeDisposable extends Disposable {
+export class CompositeDisposable extends Disposable {
   constructor (disposables = []) {
     super(() => {
       for (let i = 0; i < this.disposables.length; i++) {
@@ -35,7 +35,7 @@ class CompositeDisposable extends Disposable {
   }
 }
 
-class DisposableEvent extends Disposable {
+export class DisposableEvent extends Disposable {
   constructor (target, event, listener) {
     const events = event.split(/\s+/g)
 
@@ -48,5 +48,3 @@ class DisposableEvent extends Disposable {
     }
   }
 }
-
-export {Disposable, DisposableEvent, CompositeDisposable}
