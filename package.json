@@ -1,6 +1,6 @@
 {
   "name": "widjet-disposables",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Lightweight disposable pattern implementation",
   "main": "lib/index.js",
   "jsnext:main": "src/index.es6",
