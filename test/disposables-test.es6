@@ -102,7 +102,7 @@ describe('CompositeDisposable', () => {
 })
 
 describe('DisposableEvent', () => {
-  let [source, disposable, listener] = []
+  let source, disposable, listener
 
   describe('on a source with addEventListener method', () => {
     beforeEach(() => {
@@ -110,7 +110,7 @@ describe('DisposableEvent', () => {
         addEventListener: sinon.spy(),
         removeEventListener: sinon.spy()
       }
-      listener = () => {}
+      listener = function __listener () {}
 
       disposable = new DisposableEvent(source, 'event1 event2', listener)
     })
@@ -136,7 +136,7 @@ describe('DisposableEvent', () => {
         on: sinon.spy(),
         off: sinon.spy()
       }
-      listener = () => {}
+      listener = function __listener () {}
 
       disposable = new DisposableEvent(source, 'event1 event2', listener)
     })
