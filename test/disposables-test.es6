@@ -97,6 +97,12 @@ describe('CompositeDisposable', () => {
 
         expect(spy1.called).not.to.be.ok()
       })
+
+      it('does not fail when called with a disposable not in the composite', () => {
+        composite.remove(disposable1)
+
+        expect(() => composite.dispose()).not.to.throwError()
+      })
     })
   })
 })
@@ -153,6 +159,18 @@ describe('DisposableEvent', () => {
         expect(source.off.calledWith('event1', listener)).to.be.ok()
         expect(source.off.calledWith('event2', listener)).to.be.ok()
       })
+    })
+  })
+
+  describe('on a source without any event methods', () => {
+    it('throws an exception', () => {
+      source = {}
+
+      listener = function __listener () {}
+
+      expect(() =>
+        new DisposableEvent(source, 'event1 event2', listener)
+      ).to.throwError()
     })
   })
 })

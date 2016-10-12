@@ -45,6 +45,8 @@ export class DisposableEvent extends Disposable {
     } else if (typeof target.on === 'function') {
       super(() => events.forEach(e => target.off(e, listener)))
       events.forEach(e => target.on(e, listener))
+    } else {
+      throw new Error('The passed-in source must have either a addEventListener or on method')
     }
   }
 }
